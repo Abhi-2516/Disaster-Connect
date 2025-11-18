@@ -98,7 +98,6 @@ This platform demonstrates **real-world disaster management capabilities** inclu
 
 ```sh
 # Step 1 — Clone repository
-git clone <YOUR_REPOSITORY_URL>
 
 cd disaster-connect
 
@@ -235,7 +234,7 @@ Contributions are welcome!
 
 **Abhishek Yadav**
 📩 Email: **[2516abhi43@gmail.com](mailto:2516abhi43@gmail.com)**
-🌐 Portfolio (optional): *Add link here*
+
 
 ---
 
