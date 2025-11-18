@@ -1,112 +1,244 @@
-# Disaster Connect
+# 🌍 Disaster Connect — Crowdsourced Emergency Response Platform
 
 ![Disaster Connect Banner](assests/Disaster.png)
 
+Disaster Connect is a **real-time, crowdsourced emergency reporting platform** that empowers citizens to submit incidents with geo-tagged photos, live location, and disaster details — helping communities stay informed and enabling faster response.
 
-## About Disaster Connect
+Users can report incidents from anywhere in India, explore disasters via an interactive map, and filter updates using a notification radius (e.g., 5 km, 10 km, 50 km) to avoid alert fatigue.
 
-**Disaster Connect** is a crowdsourced emergency response website that allows individuals to report live incidents using geo-tagged photos or videos. 
-
-Users can upload reports about disasters happening in their vicinity, and others can view these updates in real-time. Additionally, users can specify a notification radius (e.g., 50 km) to receive alerts only for incidents within their selected area, ensuring they stay informed without unnecessary global notifications.
-
----
-
-## Features
-
-- **Live Disaster Reporting**: Users can post real-time disaster reports with geo-tagged images or videos.
-- **Geo-Targeted Notifications**: Users can set a radius (e.g., 50 km) to receive disaster updates specific to their location.
-- **Interactive Map**: A dynamic map displays all reported disasters, providing an easy-to-navigate interface.
-- **Community Engagement**: Users can react as helpful for better coordination
+This platform demonstrates **real-world disaster management capabilities** including geolocation, mapping, geo-based filtering, incident analytics, and intuitive UI design.
 
 ---
 
-## Tech Stack
+# 🚨 Key Features
 
-- **Frontend**: React, Vite, TypeScript, Tailwind CSS, shadcn-ui
-- **Backend**: Node.js, Express, MongoDB
-- **Maps & Location Services**: Google Maps API for geo-tagging and interactive map integration
-- **Notifications**: Web push notifications for real-time updates
+### 🆘 **Live Disaster Reporting**
+
+* Multi-step reporting form with:
+
+  * Incident type
+  * Severity level
+  * Description
+  * Geo-tagged location
+  * Image upload (preview supported)
+
+### 🗺️ **Interactive Disaster Map (Leaflet + OSM)**
+
+* Real-time incident markers
+* Severity-colored markers (High/Medium/Low)
+* Hover to preview incident details
+* Click markers to view full report info
+
+### 📍 **Location Selection**
+
+* Users can click directly on the map to pick a custom disaster location
+
+### 📡 **Geo-Targeted Notifications**
+
+* Set radius (5–50 km)
+* Receive only nearby incident updates
+* Avoid alert fatigue
+
+### 📄 **Incident Feed**
+
+* Live feed of all reported incidents
+* Search by type or severity
+* Sort by newest/oldest
+* Integrated distance calculation (Haversine formula)
+
+### 🌙 **Modern UI / UX**
+
+* Tailwind CSS + shadcn-ui components
+* Mobile-friendly responsive layout
+* Dark theme optimized
 
 ---
 
-## Installation & Setup
+# 🧰 Tech Stack
 
-Follow these steps to run Disaster Connect locally:
+### **Frontend**
 
-### Prerequisites
-- Node.js & npm installed ([Install via nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
-- MongoDB instance running locally or a cloud database (MongoDB Atlas recommended)
+* React (Vite)
+* TypeScript
+* Tailwind CSS
+* shadcn UI
+* Zustand (state management)
+* Leaflet + OpenStreetMap (maps)
+* Vite environment variables
 
-### Steps
+### **Backend (Optional / Planned)**
+
+*(Not currently active to keep AWS free-tier deployment simple)*
+
+* Node.js
+* Express
+* MongoDB (planned integration)
+* S3 Presigned Uploads (planned)
+
+### **Deployment**
+
+* **AWS S3 + CloudFront** (Production)
+* **GitHub** (Codebase)
+* **Free AWS Tier** compliant (no charges)
+
+---
+
+# 🛠️ Installation & Local Setup
+
+### 🔧 Prerequisites
+
+* Node.js 16+
+* npm or yarn
+* Git
+* (Optional) MongoDB Atlas cluster for backend expansion
+
+---
+
+## 🔹 Clone & Run Locally
+
 ```sh
-# Step 1: Clone the repository
-git clone <YOUR_GIT_URL>
+# Step 1 — Clone repository
+git clone <YOUR_REPOSITORY_URL>
 
-# Step 2: Navigate to the project directory
 cd disaster-connect
 
-# Step 3: Install dependencies
+# Step 2 — Install dependencies
 npm install
 
-# Step 4: Set up environment variables (.env file)
-# Example:
-# MONGO_URI=<your_mongodb_connection_string>
-# MAPS_API_KEY=<your_google_maps_api_key>
-
-# Step 5: Start the development server
+# Step 3 — Start development server
 npm run dev
+
+# The app will run at http://localhost:5173
 ```
 
 ---
 
-## Usage
+# ⚙️ Environment Variables (Optional)
 
-1. **Sign Up & Login**: Create an account or log in to start reporting or viewing disaster updates.
-2. **Report an Incident**: Click on "Report Disaster," add location details, upload images/videos, and submit.
-3. **View Nearby Disasters**: Set your preferred notification radius and see live updates within your range.
-4. **Engage with Reports**: Comment, share, and react to disaster reports to help spread awareness.
+Create a `.env` file in project root:
+
+```env
+# If backend enabled later
+VITE_API_URL=http://localhost:5000/api
+```
+
+> If `VITE_API_URL` is **not** set, the app automatically uses India-based demo incidents.
 
 ---
 
-## Deployment
+# 🚀 Deployment (AWS S3 + CloudFront) — Fully Manual, Free Tier
 
-Disaster Connect is deployed on:
-- **Netlify** 
+### **1. Build frontend**
 
-
-Example deployment steps:
 ```sh
-# Deploy frontend to Netlify
-netlify deploy
+npm run build
+```
 
-# Deploy backend to Heroku
-heroku create
-heroku git:remote -a <your-heroku-app-name>
-git push heroku main
+### **2. Upload to S3**
+
+* Create an S3 bucket
+* Disable “Block all public access”
+* Enable Static Website Hosting → index.html, error.html
+* Upload `/dist` files
+
+### **3. Bucket Policy**
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement":[{
+    "Effect": "Allow",
+    "Principal": "*",
+    "Action": "s3:GetObject",
+    "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+  }]
+}
+```
+
+### **4. Create CloudFront Distribution**
+
+* Origin = your S3 Website Endpoint
+* Viewer Protocol Policy = Redirect HTTP → HTTPS
+* Default root object = index.html
+* Error overrides:
+
+  * 403 → `/index.html` (200)
+  * 404 → `/index.html` (200)
+
+### **5. Access your live site**
+
+CloudFront gives you:
+
+```
+https://d123abcd1234.cloudfront.net
+```
+
+### **6. Updating the site**
+
+```sh
+aws s3 sync dist s3://YOUR_BUCKET_NAME --acl public-read
+aws cloudfront create-invalidation --distribution-id <ID> --paths "/*"
 ```
 
 ---
 
-## Contribution Guidelines
+# 📌 Project Structure
 
-Contributions are welcome! If you would like to contribute:
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-branch`)
-3. Make your changes and commit (`git commit -m "Added new feature"`)
-4. Push to your branch (`git push origin feature-branch`)
-5. Open a Pull Request
+```
+src/
+ ├── components/
+ ├── pages/
+ ├── lib/
+ │   ├── store.ts      # Zustand store
+ │   ├── utils.ts      # helper utils
+ ├── assets/
+ │   └── Disaster.png
+ ├── App.tsx
+ ├── main.tsx
+public/
+dist/
+backend/  (optional future API)
+```
 
 ---
 
-## License
+# 📈 Future Enhancements (Planned)
 
-This project is licensed under the **MIT License**.
+### 🔹 MongoDB-backed Incident Storage
+
+### 🔹 S3 Presigned Image Uploads
+
+### 🔹 Admin Dashboard
+
+### 🔹 Real-time updates via WebSockets
+
+### 🔹 Push Notifications
+
+### 🔹 Heatmaps & Severity Clusters
+
+### 🔹 AI-based Disaster Type Classification
 
 ---
 
-## Contact
+# 🤝 Contributing
 
-For questions, suggestions, or collaborations, feel free to reach out:
-- **Email**: [2516abhi43@gmail.com](mailto:2516abhi43@gmail.com)
+Contributions are welcome!
 
+1. Fork repo
+2. Create feature branch
+3. Commit changes
+4. Create PR
 
+---
+
+# 📧 Contact
+
+**Abhishek Yadav**
+📩 Email: **[2516abhi43@gmail.com](mailto:2516abhi43@gmail.com)**
+🌐 Portfolio (optional): *Add link here*
+
+---
+
+# ⭐ If you like this project
+
+Give it a ⭐ on GitHub — it motivates and helps visibility!
