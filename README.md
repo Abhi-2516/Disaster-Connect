@@ -66,14 +66,7 @@ This platform demonstrates **real-world disaster management capabilities** inclu
 * Leaflet + OpenStreetMap (maps)
 * Vite environment variables
 
-### **Backend (Optional / Planned)**
 
-*(Not currently active to keep AWS free-tier deployment simple)*
-
-* Node.js
-* Express
-* MongoDB (planned integration)
-* S3 Presigned Uploads (planned)
 
 ### **Deployment**
 
@@ -83,14 +76,9 @@ This platform demonstrates **real-world disaster management capabilities** inclu
 
 ---
 
-# 🛠️ Installation & Local Setup
 
-### 🔧 Prerequisites
 
-* Node.js 16+
-* npm or yarn
-* Git
-* (Optional) MongoDB Atlas cluster for backend expansion
+
 
 ---
 
@@ -181,26 +169,6 @@ aws cloudfront create-invalidation --distribution-id <ID> --paths "/*"
 
 ---
 
-# 📌 Project Structure
-
-```
-src/
- ├── components/
- ├── pages/
- ├── lib/
- │   ├── store.ts      # Zustand store
- │   ├── utils.ts      # helper utils
- ├── assets/
- │   └── Disaster.png
- ├── App.tsx
- ├── main.tsx
-public/
-dist/
-backend/  (optional future API)
-```
-
----
-
 # 📈 Future Enhancements (Planned)
 
 ### 🔹 MongoDB-backed Incident Storage
@@ -219,16 +187,7 @@ backend/  (optional future API)
 
 ---
 
-# 🤝 Contributing
 
-Contributions are welcome!
-
-1. Fork repo
-2. Create feature branch
-3. Commit changes
-4. Create PR
-
----
 
 # 📧 Contact
 
