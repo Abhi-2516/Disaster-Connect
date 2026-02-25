@@ -1,12 +1,3 @@
-// Converted to .jsx (this file had no TypeScript, so it was a direct rename)
-// - This is the file that was causing your 404 errors for Hero and Navbar.
-// - Set the main page background to bg-slate-950.
-// - Restyled the "Recent Incidents" section for the dark theme.
-// - Restyled the "How It Works" and "Call to Action" sections to use our
-//   new dark "glassmorphism" (bg-slate-800/40, backdrop-blur-md, etc.).
-// - Restyled the buttons and footer to match the dark theme.
-// - Kept all functionality and component logic identical.
-
 import { Link } from 'react-router-dom';
 import Hero from '@/components/Hero'; // Will now import Hero.jsx
 import Navbar from '@/components/Navbar'; // Will now import Navbar.jsx
