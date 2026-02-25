@@ -1,6 +1,4 @@
-// Converted to .jsx (no TypeScript)
-// - Changed defaultTheme to "dark" as requested.
-// - All functionality and routes remain identical.
+
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
