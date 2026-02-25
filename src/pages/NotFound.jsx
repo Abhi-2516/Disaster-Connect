@@ -1,7 +1,3 @@
-// Converted to .jsx (no TypeScript)
-// - Restyled for the dark theme (bg-slate-950, text-white, etc.)
-// - Kept all functionality identical.
-
 import { useLocation, Link } from "react-router-dom"; // Import Link
 import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
