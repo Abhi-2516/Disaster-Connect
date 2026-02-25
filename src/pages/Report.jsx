@@ -1,9 +1,3 @@
-// Converted to .jsx
-// - Removed all TypeScript (imports, type casting, event handler types)
-// - Fully restyled for dark "glassmorphism" theme (cards, inputs, selects, buttons)
-// - Added 'enableHighAccuracy' to the geolocation call for better accuracy
-// - Kept all multi-step form logic and functionality identical.
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
